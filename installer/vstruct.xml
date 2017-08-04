@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jonchki-artifact version="1.0">
+	<info group="com.github.toxicfrog"
+	      module="vstruct"
+	      artifact="vstruct"
+	      version="${PROJECT_VERSION}"
+	      vcs-id="${PROJECT_VERSION_VCS}">
+		<license name="MIT"/>
+		<author name="Ben 'ToxicFrog' Kelly" url="https://github.com/ToxicFrog/vstruct" />
+		<description>
+			A Lua library for packing and unpacking binary data, supporting arbitrary
+			(byte-aligned) widths, named fields, and repetition.
+		</description>
+	</info>
+	<dependencies>
+		<dependency group="org.lua" module="lua" artifact="lua" version="5.2"/>
+	</dependencies>
+	<dependencies>
+		<dependency group="org.lua" module="lua" artifact="lua" version="5.1"/>
+	</dependencies>
+</jonchki-artifact>
