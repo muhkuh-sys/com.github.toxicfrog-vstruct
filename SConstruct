@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#-------------------------------------------------------------------------#
+# ----------------------------------------------------------------------- #
 #   Copyright (C) 2017 by Christoph Thelen                                #
 #   doc_bacardi@users.sourceforge.net                                     #
 #                                                                         #
@@ -17,10 +17,13 @@
 #   along with this program; if not, write to the                         #
 #   Free Software Foundation, Inc.,                                       #
 #   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             #
-#-------------------------------------------------------------------------#
+# ----------------------------------------------------------------------- #
+
+import os.path
+import tarfile
 
 
-#----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 #
 # Set up the Muhkuh Build System.
 #
@@ -28,11 +31,8 @@
 SConscript('mbs/SConscript')
 Import('atEnv')
 
-import os.path
-import tarfile
 
-
-#----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 #
 # Depack the source archive.
 #
@@ -41,7 +41,7 @@ tSrcArchive.extractall('targets/depack')
 tSrcArchive.close()
 strDepackPath = 'targets/depack/vstruct-2.1.1/'
 
-#----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 #
 # Build the artifacts.
 #
@@ -52,7 +52,11 @@ strModule = 'vstruct'
 # Split the group by dots.
 aGroup = strGroup.split('.')
 # Build the path for all artifacts.
-strModulePath = 'targets/jonchki/repository/%s/%s/%s' % ('/'.join(aGroup), strModule, PROJECT_VERSION)
+strModulePath = 'targets/jonchki/repository/%s/%s/%s' % (
+    '/'.join(aGroup),
+    strModule,
+    PROJECT_VERSION
+)
 
 strArtifact = 'vstruct'
 
@@ -100,8 +104,43 @@ tArcList.AddFiles('lua/vstruct/io',
                   os.path.join(strDepackPath, 'io/x.lua'),
                   os.path.join(strDepackPath, 'io/z.lua'))
 
-tArtifact = atEnv.DEFAULT.Archive(os.path.join(strModulePath, '%s-%s.zip' % (strArtifact, PROJECT_VERSION)), None, ARCHIVE_CONTENTS = tArcList)
-tArtifactHash = atEnv.DEFAULT.Hash('%s.hash' % tArtifact[0].get_path(), tArtifact[0].get_path(), HASH_ALGORITHM='md5,sha1,sha224,sha256,sha384,sha512', HASH_TEMPLATE='${ID_UC}:${HASH}\n')
-tConfiguration = atEnv.DEFAULT.Version(os.path.join(strModulePath, '%s-%s.xml' % (strArtifact, PROJECT_VERSION)), 'installer/%s.xml' % strModule)
-tConfigurationHash = atEnv.DEFAULT.Hash('%s.hash' % tConfiguration[0].get_path(), tConfiguration[0].get_path(), HASH_ALGORITHM='md5,sha1,sha224,sha256,sha384,sha512', HASH_TEMPLATE='${ID_UC}:${HASH}\n')
-tArtifactPom = atEnv.DEFAULT.ArtifactVersion(os.path.join(strModulePath, '%s-%s.pom' % (strArtifact, PROJECT_VERSION)), 'installer/pom.xml')
+tArtifact = atEnv.DEFAULT.Archive(
+    os.path.join(
+        strModulePath,
+        '%s-%s.zip' % (
+            strArtifact,
+            PROJECT_VERSION
+        )
+    ),
+    None,
+    ARCHIVE_CONTENTS=tArcList
+)
+tArtifactHash = atEnv.DEFAULT.Hash(
+    '%s.hash' % tArtifact[0].get_path(),
+    tArtifact[0].get_path(),
+    HASH_ALGORITHM='md5,sha1,sha224,sha256,sha384,sha512',
+    HASH_TEMPLATE='${ID_UC}:${HASH}\n'
+)
+tConfiguration = atEnv.DEFAULT.Version(
+    os.path.join(
+        strModulePath,
+        '%s-%s.xml' % (
+            strArtifact,
+            PROJECT_VERSION
+        )
+    ),
+    'installer/%s.xml' % strModule
+)
+tConfigurationHash = atEnv.DEFAULT.Hash(
+    '%s.hash' % tConfiguration[0].get_path(),
+    tConfiguration[0].get_path(),
+    HASH_ALGORITHM='md5,sha1,sha224,sha256,sha384,sha512',
+    HASH_TEMPLATE='${ID_UC}:${HASH}\n'
+)
+tArtifactPom = atEnv.DEFAULT.ArtifactVersion(
+    os.path.join(
+        strModulePath,
+        '%s-%s.pom' % (strArtifact, PROJECT_VERSION)
+    ),
+    'installer/pom.xml'
+)
