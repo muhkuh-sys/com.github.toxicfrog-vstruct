@@ -36,10 +36,10 @@ import tarfile
 #
 # Depack the source archive.
 #
-tSrcArchive = tarfile.open('vstruct-2.0.1.tar.gz', 'r')
+tSrcArchive = tarfile.open('vstruct-2.1.1.tar.gz', 'r')
 tSrcArchive.extractall('targets/depack')
 tSrcArchive.close()
-strDepackPath = 'targets/depack/vstruct-2.0.1/'
+strDepackPath = 'targets/depack/vstruct-2.1.1/'
 
 #----------------------------------------------------------------------------
 #
@@ -66,6 +66,7 @@ tArcList.AddFiles('lua/vstruct',
                   os.path.join(strDepackPath, 'ast.lua'),
                   os.path.join(strDepackPath, 'compat1x.lua'),
                   os.path.join(strDepackPath, 'cursor.lua'),
+                  os.path.join(strDepackPath, 'frexp.lua'),
                   os.path.join(strDepackPath, 'init.lua'),
                   os.path.join(strDepackPath, 'io.lua'),
                   os.path.join(strDepackPath, 'lexer.lua'))
